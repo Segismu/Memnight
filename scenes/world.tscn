@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=4 uid="uid://bj673x24vj3fm"]
+[gd_scene load_steps=10 format=4 uid="uid://bj673x24vj3fm"]
 
 [ext_resource type="Texture2D" uid="uid://bd6p0b5s6e8ad" path="res://art/Placeholders/sprites/tilesets/plains.png" id="1_njgaj"]
 [ext_resource type="Texture2D" uid="uid://wcuyk02b56at" path="res://art/Placeholders/sprites/tilesets/grass.png" id="2_5suhe"]
 [ext_resource type="Texture2D" uid="uid://c8xt1o0xqae6n" path="res://art/Placeholders/sprites/objects/objects.png" id="3_e502k"]
 [ext_resource type="PackedScene" uid="uid://bky8ac5cubmfo" path="res://scenes/player.tscn" id="4_n22f5"]
+[ext_resource type="PackedScene" uid="uid://d35fxf0sf4ah7" path="res://scenes/enemy.tscn" id="4_n34fr"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fjkj0"]
 texture = ExtResource("1_njgaj")
@@ -109,6 +110,9 @@ tile_set = SubResource("TileSet_wb4y3")
 y_sort_enabled = true
 tile_map_data = PackedByteArray("AAAGAAwAAgAAAAUAAAAVAAMAAgAAAAUAAAAeABUAAgAAAAUAAAAnAAcAAgAAAAUAAAAvABQAAgAAAAUAAAAOABEAAgAIAAYAAAARAAgAAgAIAAYAAAAHABUAAgAIAAYAAAAcAAoAAgAIAAYAAAAfAAIAAgAIAAYAAAAmABAAAgAIAAYAAAAZABIAAgAIAAYAAAAuAAMAAgAIAAYAAAAOAAMAAgAGAAcAAAAXAA0AAgAGAAcAAAAVABEAAgAGAAcAAAASABUAAgAGAAcAAAAVABYAAgAGAAcAAAAiAAgAAgAGAAcAAAAhAA4AAgAGAAcAAAAaAAYAAgAGAAcAAAAoAAEAAgAGAAcAAAAtAA4AAgAGAAcAAAAcAA8AAgAKAAcAAAApABQAAgAKAAcAAAAtAAkAAgAKAAcAAAARAA8AAgAKAAcAAAAKAAEAAgAKAAcAAAAGABEAAgAKAAcAAAAjAAMAAgAKAAcAAAAMABAAAgAFAAAAAAAfABIAAgAFAAAAAAAmAA0AAgAFAAAAAAAeAAcAAgAFAAAAAAAaAAEAAgAFAAAAAAAlAAIAAgAFAAAAAAAxAAIAAgAFAAAAAAAKAA0AAgAFAAAAAAAIABAAAgAAAAEAAAACAAgAAgAAAAEAAAAFAAEAAgAAAAEAAAAWAAoAAgAAAAEAAAAkABUAAgAAAAEAAAAjABMAAgAAAAEAAAArAAsAAgAAAAEAAAAvAAwAAgAAAAEAAAArAAYAAgAAAAEAAAAqAAUAAgAAAAEAAAAaAAwAAgAAAAAAAAAXAAgAAgAKAAAAAAAJAAcAAgAAAAUAAAA=")
 tile_set = SubResource("TileSet_wb4y3")
+
+[node name="enemy" parent="VegetationAndObjects" instance=ExtResource("4_n34fr")]
+position = Vector2(221, 105)
 
 [node name="Player" parent="." instance=ExtResource("4_n22f5")]
 position = Vector2(60, 46)

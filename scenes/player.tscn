@@ -416,7 +416,8 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_lcn3n"]
 radius = 4.03113
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" groups=["player"]]
+visibility_layer = 3
 script = ExtResource("1_183ti")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -425,7 +426,8 @@ sprite_frames = SubResource("SpriteFrames_825ky")
 animation = &"side_attack"
 autoplay = "front_idle"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["player"]]
+visibility_layer = 3
 y_sort_enabled = true
 position = Vector2(1, -4)
 shape = SubResource("CircleShape2D_lcn3n")
