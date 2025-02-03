@@ -5,7 +5,12 @@ extends CharacterBody2D
 var chasing_player = false
 var player = null
 
+var health = 100
+var player_in_attack_range = false
+
 func _physics_process(delta):
+	damage()
+	
 	if chasing_player and player:
 		var direction = (player.position - position).normalized()
 		var target_velocity = direction * speed
@@ -33,3 +38,21 @@ func _on_detection_area_body_entered(body):
 func _on_detection_area_body_exited(body):
 	if body == player:
 		chasing_player = false
+
+func _on_enemy_hitbox_area_entered(area):
+	# Asegurar que es enemy_hitbox y no otra área
+	if area.name == "player_hitbox":
+		print("¡Detectó al jugador!")
+		player_in_attack_range = true
+
+
+func _on_enemy_hitbox_area_exited(area):
+		if area.name == "player_hitbox":
+			player_in_attack_range = false
+
+func damage():
+	if player_in_attack_range and Global.player_current_attack:
+		health = health - 20
+		print("Slime health =", health)
+		if health <= 0:
+			self.queue_free()
