@@ -7,21 +7,23 @@ var player = null
 
 func _physics_process(delta):
 	if chasing_player and player:
-		# Calculamos la dirección hacia el jugador
 		var direction = (player.position - position).normalized()
-		# Aplicamos movimiento suave con lerp()
-		velocity = velocity.lerp(direction * speed, acceleration * delta)
+		var target_velocity = direction * speed
+		velocity = velocity.lerp(target_velocity, acceleration * delta)
 
-		move_and_slide()
+		# Intentamos movernos y detectamos si chocamos con algo
+		var collision = move_and_collide(velocity * delta)
+		
+		# Si hay colisión, evitamos seguir empujando al jugador
+		if collision:
+			velocity = Vector2.ZERO
 
-		# Animaciones
 		$AnimatedSprite2D.play("walk")
 		$AnimatedSprite2D.flip_h = velocity.x < 0
 	else:
-		$AnimatedSprite2D.play("idle")
-		# Reducimos la velocidad poco a poco al perder el objetivo
 		velocity = velocity.lerp(Vector2.ZERO, acceleration * delta)
 		move_and_slide()
+		$AnimatedSprite2D.play("idle")
 
 func _on_detection_area_body_entered(body):
 	if body.is_in_group("player"): # Aseguramos que solo detecta al jugador

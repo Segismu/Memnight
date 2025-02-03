@@ -1,5 +1,10 @@
 extends CharacterBody2D
 
+var enemy_in_attack_range = false
+var enemy_attack_cooldown = true
+var health = 100
+var player_alive = true
+
 @export var speed: float = 100.0
 
 func _ready():
@@ -9,6 +14,7 @@ func _physics_process(delta):
 	player_movement()
 	update_animation()
 	move_and_slide()
+	enemy_attack()
 
 func player_movement():
 	# Obtiene la dirección del input
@@ -38,3 +44,19 @@ func update_animation():
 			anim.play("front_idle")
 		elif anim.animation == "back_walk":
 			anim.play("back_idle")
+
+func _on_player_hitbox_area_entered(area):
+	print("Se activó area_entered con:", area.name)
+	
+	# Asegurar que es enemy_hitbox y no otra área
+	if area.name == "enemy_hitbox":
+		print("¡Detectó un enemigo para atacar!")
+		enemy_in_attack_range = true
+
+func _on_player_hitbox_area_exited(area):
+	if area.name == "enemy_hitbox":
+		enemy_in_attack_range = false
+
+func enemy_attack():
+	if enemy_in_attack_range:	
+		print("-10 HP")

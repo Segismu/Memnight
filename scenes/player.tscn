@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=3 uid="uid://bky8ac5cubmfo"]
+[gd_scene load_steps=57 format=3 uid="uid://bky8ac5cubmfo"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_183ti"]
 [ext_resource type="Texture2D" uid="uid://dwilrg08bvgqv" path="res://art/Placeholders/sprites/characters/player.png" id="2_nqoo8"]
@@ -416,6 +416,9 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_lcn3n"]
 radius = 4.03113
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_0rdtr"]
+radius = 15.0
+
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 visibility_layer = 3
 script = ExtResource("1_183ti")
@@ -426,8 +429,19 @@ sprite_frames = SubResource("SpriteFrames_825ky")
 animation = &"side_attack"
 autoplay = "front_idle"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["player"]]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visibility_layer = 3
 y_sort_enabled = true
 position = Vector2(1, -4)
 shape = SubResource("CircleShape2D_lcn3n")
+
+[node name="player_hitbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="player_hitbox"]
+position = Vector2(1, -8)
+shape = SubResource("CircleShape2D_0rdtr")
+
+[connection signal="area_entered" from="player_hitbox" to="." method="_on_player_hitbox_area_entered"]
+[connection signal="area_exited" from="player_hitbox" to="." method="_on_player_hitbox_area_exited"]
+[connection signal="body_entered" from="player_hitbox" to="." method="_on_player_hitbox_body_entered"]
+[connection signal="body_exited" from="player_hitbox" to="." method="_on_player_hitbox_body_exited"]

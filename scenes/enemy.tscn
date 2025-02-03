@@ -1,6 +1,6 @@
-[gd_scene load_steps=21 format=3 uid="uid://d35fxf0sf4ah7"]
+[gd_scene load_steps=22 format=3 uid="uid://d35fxf0sf4ah7"]
 
-[ext_resource type="Script" path="res://scenes/enemy.gd" id="1_0qnty"]
+[ext_resource type="Script" path="res://scripts/enemy.gd" id="1_0qnty"]
 [ext_resource type="Texture2D" uid="uid://dbw407r4e3bdm" path="res://art/Placeholders/sprites/characters/slime.png" id="1_8g0ng"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_iueww"]
@@ -132,6 +132,9 @@ radius = 62.0725
 [sub_resource type="CircleShape2D" id="CircleShape2D_erep2"]
 radius = 5.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_vux7l"]
+radius = 13.0
+
 [node name="enemy" type="CharacterBody2D"]
 collision_layer = 2
 script = ExtResource("1_0qnty")
@@ -143,7 +146,7 @@ animation = &"idle"
 autoplay = "idle"
 frame_progress = 0.908547
 
-[node name="detection_area" type="Area2D" parent="."]
+[node name="detection_area" type="Area2D" parent="." groups=["enemy"]]
 light_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="detection_area"]
@@ -153,6 +156,12 @@ shape = SubResource("CircleShape2D_6iwyg")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -5)
 shape = SubResource("CircleShape2D_erep2")
+
+[node name="enemy_hitbox" type="Area2D" parent="." groups=["enemy"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="enemy_hitbox"]
+position = Vector2(0, -6)
+shape = SubResource("CircleShape2D_vux7l")
 
 [connection signal="body_entered" from="detection_area" to="." method="_on_detection_area_body_entered"]
 [connection signal="body_exited" from="detection_area" to="." method="_on_detection_area_body_exited"]
