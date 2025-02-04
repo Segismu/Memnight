@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 var enemy_in_attack_range = false
 var enemy_attack_cooldown = true
-var health = 100
+var health = 200
 var player_alive = true
 
 var attacking = false
@@ -22,6 +22,7 @@ func _physics_process(delta):
 		coyote_time_timer = max(0, coyote_time_timer - delta)
 		player_movement()
 		move_and_slide()
+		current_camera()
 
 	if coyote_time_timer <= 0:
 		update_animation()
@@ -112,3 +113,11 @@ func die():
 	health = 0
 	print("You died")
 	queue_free()
+	
+func current_camera():
+	if Global.current_scene == "world":
+		$world_camera.enabled = true
+		$cliftside_camera.enabled = false
+	elif Global.current_scene == "clift_side":
+		$world_camera.enabled = false
+		$cliftside_camera.enabled = true

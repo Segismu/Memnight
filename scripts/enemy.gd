@@ -7,6 +7,7 @@ var player = null
 
 var health = 100
 var player_in_attack_range = false
+var can_take_damage = true
 
 func _physics_process(delta):
 	damage()
@@ -52,7 +53,14 @@ func _on_enemy_hitbox_area_exited(area):
 
 func damage():
 	if player_in_attack_range and Global.player_current_attack:
-		health = health - 20
-		print("Slime health =", health)
-		if health <= 0:
-			self.queue_free()
+		if can_take_damage:
+			health = health - 20
+			$take_damage_cooldown.start()
+			can_take_damage = false
+			print("Slime health =", health)
+			if health <= 0:
+				self.queue_free()
+
+
+func _on_take_damage_cooldown_timeout():
+	can_take_damage = true
